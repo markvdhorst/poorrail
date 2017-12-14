@@ -49,8 +49,8 @@ public class TrainCompany {
 			int index) {
 		Train t = findTrainInArrayList(trainid, this.trains);
 		if (t != null) {
-			boolean b = t.addRollingComponentPlace(rname, wagonId, index);
-			return b;
+			t.addRollingComponentPlace(rname, wagonId, index);
+			return true;
 		}
 		return false;
 	}
@@ -96,15 +96,4 @@ public class TrainCompany {
 		return null;
 	}
 
-	// deze methode heb ik algemeen gemaakt net als die hierboven om code te
-	// besparen.
-	public static RollingComponent findRollingComponentInArrayList(String s, ArrayList<RollingComponent> a) {
-		for (RollingComponent o : a) {
-			if (o.getId() == s) {
-				return o;
-			}
-
-		}
-		return null;
-	}
 }
