@@ -6,12 +6,12 @@ public class Train {
 	// Final omdat id later aanpassen problemen opleveren kan.
 	private final String id;
 	private ArrayList<RollingComponent> rollingComponents;
-
 	// Willen wij altijd een component in een trein? Ik zeg ja. model zei ook ja.
 	// Dit is de constructor voor altijd rollingcomponent in train nu kan beide
 	// nog.
 	public Train(String trainId, RollingComponentType rct, String wagonid) {
 		id = trainId;
+		rollingComponents = new ArrayList<RollingComponent>();
 		RollingComponent rc = new RollingComponent(rct, wagonid);
 		rollingComponents.add(rc);
 	}

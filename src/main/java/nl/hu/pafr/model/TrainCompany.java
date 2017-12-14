@@ -7,8 +7,9 @@ public class TrainCompany {
 	private ArrayList<RollingComponentType> rcTypes;
 
 	// Ik vraag mij nog steeds af of dit goed is.
-	private TrainCompany() {
-
+	public TrainCompany() {
+		rcTypes = new ArrayList<RollingComponentType>();
+		trains = new ArrayList<Train>();		
 	}
 
 	// Iets lastiger dan de train.removeRollingComponent()
@@ -67,7 +68,6 @@ public class TrainCompany {
 	public final boolean addRollingComponentType(int s, String n, Boolean cd) {
 		RollingComponentType rct = new RollingComponentType(s, n, cd);
 		rcTypes.add(rct);
-		rct = null;
 		return true;
 	}
 
@@ -77,13 +77,17 @@ public class TrainCompany {
 		return true;
 
 	}
-
 	// Waarom is dit nodig bert?
-	public final boolean addTrain(String TrainId, RollingComponentType rct, String wagonId) {
-		Train t = new Train(TrainId, rct, wagonId);
-		trains.add(t);
-		t = null;
-		return true;
+	public final boolean addTrain(String TrainId, String name, String wagonId) {
+		for (RollingComponentType rct : this.rcTypes){
+			if (rct.getName() == name){
+				Train t = new Train(TrainId, rct, wagonId);
+				trains.add(t);
+				t = null;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// verzin hier iets voor want dit scheelt 5 keer code.
@@ -96,5 +100,10 @@ public class TrainCompany {
 		}
 		return null;
 	}
-
+	public ArrayList<Train> getTrains(){
+		return this.trains;
+	}
+	public ArrayList<RollingComponentType> getRCType(){
+		return this.rcTypes;
+	}
 }
