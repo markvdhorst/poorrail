@@ -1,7 +1,6 @@
 package nl.hu.pafr.model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TrainCompany {
 	private ArrayList<Train> trains;
@@ -14,34 +13,23 @@ public class TrainCompany {
 
 	// Iets lastiger dan de train.removeRollingComponent()
 	public boolean deleteTrain(String id) {
-		for (Train t : trains) {
-			if (t.getId() == id) {
-				ArrayList<RollingComponent> a = t.getRollingComponents();
+		Train t = findTrainInArrayList(id, this.trains);
+		if (t != null){
+		ArrayList<RollingComponent> a = t.getRollingComponents();
 				// Alle rollingcomponents weghalen is ook wel zo netjes.
 				for (RollingComponent r : a) {
 					a.remove(r);
 				}
-				a = null;
 				trains.remove(t);
-				t = null;
 				return true;
 			}
-		}
 		return false;
-	}
-
-
-
-public int getSeats(String id) {
-		for (Train t : trains) {
-			if (t.getId() == id) {
-				return t.getSeats();
-			}
 		}
-		// Als wij dit aanroepen maar de trein niet bestaat heb je dus 0
-		// stoelen???
-		return 0;
-	}
+		
+
+	public int getSeats(String id) {
+		return findTrainInArrayList(id, this.trains).getSeats();
+		}
 
 	// Maken wij hier een wagon aan? Of moet je wagon al bestaan? Hebben wij ook
 	// niet het type nodig?
@@ -59,35 +47,35 @@ public int getSeats(String id) {
 	// Zelfde als hierboven
 	public boolean addRollingComponentToTrainByIndex(String trainid, String wagonId, RollingComponentType rname,
 			int index) {
-		for (Train t : trains) {
-			if (t.getId() == trainid) {
-				t.addRollingComponentPlace(rname, wagonId, index);
-				return true;
-			}
+		Train t = findTrainInArrayList(trainid, this.trains);
+		if (t != null) {
+			boolean b = t.addRollingComponentPlace(rname, wagonId, index);
+			return b;
 		}
 		return false;
 	}
 
 	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) {
-		for (Train t : trains) {
-			if (t.getId() == trainid) {
-				t.deleteRolingComponent(wagonId);
-				return true;
-			}
+		Train t = findTrainInArrayList(trainid, this.trains);
+		if (t != null) {
+			boolean del = t.deleteRolingComponent(wagonId);
+			return del;
 		}
 		return false;
 	}
 
-	public final boolean addRollingComponentType(int s, String n, Boolean cd){
+	public final boolean addRollingComponentType(int s, String n, Boolean cd) {
 		RollingComponentType rct = new RollingComponentType(s, n, cd);
 		rcTypes.add(rct);
 		rct = null;
 		return true;
 	}
-	//Dit is lastig wat te doen met de rollincomponents van dat type? Allemaal ook weghalen?
-	public final boolean deleteRollingComponentType(String name){
+
+	// Dit is lastig wat te doen met de rollincomponents van dat type? Allemaal
+	// ook weghalen?
+	public final boolean deleteRollingComponentType(String name) {
 		return true;
-		
+
 	}
 
 	// Waarom is dit nodig bert?
@@ -97,13 +85,26 @@ public int getSeats(String id) {
 		t = null;
 		return true;
 	}
-	
-	//verzin hier iets voor want dit scheelt 5 keer code.
-	public static Object findStringInArrayList(String s, ArrayList a){
-		for (Object o: a){
-			if (o.getId() == s){
+
+	// verzin hier iets voor want dit scheelt 5 keer code.
+	public static Train findTrainInArrayList(String s, ArrayList<Train> a) {
+		for (Train o : a) {
+			if (o.getId() == s) {
 				return o;
 			}
 		}
+		return null;
+	}
+
+	// deze methode heb ik algemeen gemaakt net als die hierboven om code te
+	// besparen.
+	public static RollingComponent findRollingComponentInArrayList(String s, ArrayList<RollingComponent> a) {
+		for (RollingComponent o : a) {
+			if (o.getId() == s) {
+				return o;
+			}
+
+		}
+		return null;
 	}
 }
