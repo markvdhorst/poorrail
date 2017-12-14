@@ -13,7 +13,7 @@ public class TrainCompany {
 
 	// Iets lastiger dan de train.removeRollingComponent()
 	public boolean deleteTrain(String id) {
-		Train t = findTrainInArrayList(id, this.trains);
+		Train t = findTrainInArrayList(id);
 		if (t != null){
 		ArrayList<RollingComponent> a = t.getRollingComponents();
 				// Alle rollingcomponents weghalen is ook wel zo netjes.
@@ -28,7 +28,7 @@ public class TrainCompany {
 		
 
 	public int getSeats(String id) {
-		return findTrainInArrayList(id, this.trains).getSeats();
+		return findTrainInArrayList(id).getSeats();
 		}
 
 	// Maken wij hier een wagon aan? Of moet je wagon al bestaan? Hebben wij ook
@@ -47,7 +47,7 @@ public class TrainCompany {
 	// Zelfde als hierboven
 	public boolean addRollingComponentToTrainByIndex(String trainid, String wagonId, RollingComponentType rname,
 			int index) {
-		Train t = findTrainInArrayList(trainid, this.trains);
+		Train t = findTrainInArrayList(trainid);
 		if (t != null) {
 			t.addRollingComponentPlace(rname, wagonId, index);
 			return true;
@@ -56,7 +56,7 @@ public class TrainCompany {
 	}
 
 	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) {
-		Train t = findTrainInArrayList(trainid, this.trains);
+		Train t = findTrainInArrayList(trainid);
 		if (t != null) {
 			boolean del = t.deleteRolingComponent(wagonId);
 			return del;
@@ -87,7 +87,8 @@ public class TrainCompany {
 	}
 
 	// verzin hier iets voor want dit scheelt 5 keer code.
-	public static Train findTrainInArrayList(String s, ArrayList<Train> a) {
+	public Train findTrainInArrayList(String s) {
+		ArrayList<Train> a = this.trains;
 		for (Train o : a) {
 			if (o.getId() == s) {
 				return o;
