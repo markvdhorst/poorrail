@@ -30,6 +30,7 @@ public class CommandLineInterface extends JFrame implements Observer{
 	private JTextArea txtrVorigeCommandos;
 	private TrainCompanyController controller;
 	private DslParser parser;
+	JTextArea txtrOutput;
 
 	/**
 	 * Create the frame.
@@ -64,6 +65,10 @@ public class CommandLineInterface extends JFrame implements Observer{
 		JPanel panel_6 = new JPanel();
 		panel.add(panel_6);
 		panel_6.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		txtrOutput = new JTextArea();
+		txtrOutput.setText("output");
+		panel_6.add(txtrOutput);
 		
 		JPanel panel_7 = new JPanel();
 		panel.add(panel_7);
@@ -112,7 +117,7 @@ public class CommandLineInterface extends JFrame implements Observer{
 		public void actionPerformed(ActionEvent e) {
 			String text = txtCommandLine.getText();
 			try {
-				parser.parseDSL(text);
+				txtrOutput.setText(parser.parseDSL(text));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
