@@ -21,4 +21,7 @@ public class RollingComponent {
 	public int getSeats(){
 		return rollingComponentType.getSeats();
 	}
+	public String toString(){
+		return ("printing rolling component " + id + rollingComponentType + getSeats());
+	}
 }

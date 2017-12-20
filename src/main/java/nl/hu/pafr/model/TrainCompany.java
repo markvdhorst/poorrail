@@ -2,25 +2,25 @@ package nl.hu.pafr.model;
 
 import java.util.ArrayList;
 
+
 public class TrainCompany {
 	private ArrayList<Train> trains;
 	private ArrayList<RollingComponentType> rcTypes;
 
-	// Ik vraag mij nog steeds af of dit goed is.
+
 	public TrainCompany() {
 		rcTypes = new ArrayList<RollingComponentType>();
 		trains = new ArrayList<Train>();		
 	}
 
 	// Iets lastiger dan de train.removeRollingComponent()
-	public boolean deleteTrain(String id) {
+	public boolean deleteTrain(String id) throws Exception {
 		Train t = findTrainInArrayList(id);
 		if (t != null){
 		ArrayList<RollingComponent> a = t.getRollingComponents();
 				// Alle rollingcomponents weghalen is ook wel zo netjes.
-				for (RollingComponent r : a) {
-					a.remove(r);
-				}
+				// Not to self: Ik maar de lijst niet aanpassen dus hoe doe ik dit.
+				a.clear();
 				trains.remove(t);
 				return true;
 			}
@@ -28,13 +28,11 @@ public class TrainCompany {
 		}
 		
 
-	public int getSeats(String id) {
+	public int getSeats(String id) throws Exception {
 		return findTrainInArrayList(id).getSeats();
 		}
 
-	// Maken wij hier een wagon aan? Of moet je wagon al bestaan? Hebben wij ook
-	// niet het type nodig?
-	// Morgen naar kijken.
+	// Het type moet al bestaan.
 	public boolean addRollingComponentToTrain(String trainid, String wagonId, RollingComponentType rname) {
 		for (Train t : trains) {
 			if (t.getId() == trainid) {
@@ -47,7 +45,7 @@ public class TrainCompany {
 
 	// Zelfde als hierboven
 	public boolean addRollingComponentToTrainByIndex(String trainid, String wagonId, RollingComponentType rname,
-			int index) {
+			int index) throws Exception {
 		Train t = findTrainInArrayList(trainid);
 		if (t != null) {
 			t.addRollingComponentPlace(rname, wagonId, index);
@@ -56,7 +54,7 @@ public class TrainCompany {
 		return false;
 	}
 
-	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) {
+	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) throws Exception {
 		Train t = findTrainInArrayList(trainid);
 		if (t != null) {
 			boolean del = t.deleteRolingComponent(wagonId);
@@ -70,13 +68,11 @@ public class TrainCompany {
 		rcTypes.add(rct);
 		return true;
 	}
-
-	// Dit is lastig wat te doen met de rollincomponents van dat type? Allemaal
-	// ook weghalen?
-	public final boolean deleteRollingComponentType(String name) {
-		return true;
-
+	// geen int ingeven is 20 seats
+	public final boolean addRollingComponentType(String n, Boolean cd) {
+		return addRollingComponentType(20, n, cd);
 	}
+
 	// Waarom is dit nodig bert?
 	public final boolean addTrain(String TrainId, String name, String wagonId) {
 		for (RollingComponentType rct : this.rcTypes){
@@ -91,14 +87,14 @@ public class TrainCompany {
 	}
 
 	// verzin hier iets voor want dit scheelt 5 keer code.
-	public Train findTrainInArrayList(String s) {
+	public Train findTrainInArrayList(String s) throws Exception {
 		ArrayList<Train> a = this.trains;
 		for (Train o : a) {
 			if (o.getId() == s) {
 				return o;
 			}
 		}
-		return null;
+		throw new Exception("Object bestaat niet");
 	}
 	public ArrayList<Train> getTrains(){
 		return this.trains;

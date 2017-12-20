@@ -23,5 +23,8 @@ public class RollingComponentType {
 	public boolean isCanDrive() {
 		return canDrive;
 	}
+	public String toString(){
+		return ("printing rolling componenttype "+ seats+ " " + name+ " " + canDrive);
+	}
 
 }

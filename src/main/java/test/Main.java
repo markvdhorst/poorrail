@@ -12,13 +12,30 @@ public class Main {
 		t.addTrain("Mark", "Mark", "Mark");
 		t.addRollingComponentType(20, "Mark", true);
 		t.addTrain("Mark", "Mark", "Mark");
+		//print eerst alle rcttypes
+		System.out.println(t.getRCType());
+		//print dan alle treaining
+		System.out.println(t.getTrains());
+		try {
+			t.deleteTrain("Bert");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(t.getRCType());
 		System.out.println(t.getTrains());
-		t.deleteTrain("Bert");
-		System.out.println(t.getRCType());
-		System.out.println(t.getTrains());
-		System.out.println(t.getSeats("Bert"));
-		System.out.println(t.getSeats("Mark"));
+		try {
+			System.out.println(t.getSeats("Bert"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			System.out.println(t.getSeats("Mark"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

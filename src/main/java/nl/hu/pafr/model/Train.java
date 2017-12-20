@@ -6,7 +6,9 @@ public class Train {
 	// Final omdat id later aanpassen problemen opleveren kan.
 	private final String id;
 	private ArrayList<RollingComponent> rollingComponents;
-	// Willen wij altijd een component in een trein? Ik zeg ja. model zei ook ja.
+
+	// Willen wij altijd een component in een trein? Ik zeg ja. model zei ook
+	// ja.
 	// Dit is de constructor voor altijd rollingcomponent in train nu kan beide
 	// nog.
 	public Train(String trainId, RollingComponentType rct, String wagonid) {
@@ -32,7 +34,7 @@ public class Train {
 
 	// Snel geschreven en niet getest als er ergens problem zijn is het hier
 	// wel.
-	public boolean deleteRolingComponent(String id) {
+	public boolean deleteRolingComponent(String id) throws Exception {
 		RollingComponent r = findRollingComponentInTrain(id);
 		rollingComponents.remove(r);
 		return true;
@@ -48,7 +50,7 @@ public class Train {
 	}
 
 	// Komt het voor dat wij het id weten maar het component wilen hebben?
-	public RollingComponent getRollingComponentsByID(String id) {
+	public RollingComponent getRollingComponentsByID(String id) throws Exception {
 		RollingComponent r = findRollingComponentInTrain(id);
 		return r;
 	}
@@ -56,7 +58,8 @@ public class Train {
 	public String getId() {
 		return id;
 	}
-	public RollingComponent findRollingComponentInTrain(String s) {
+
+	public RollingComponent findRollingComponentInTrain(String s) throws Exception {
 		ArrayList<RollingComponent> a = this.rollingComponents;
 		for (RollingComponent o : a) {
 			if (o.getId() == s) {
@@ -64,7 +67,7 @@ public class Train {
 			}
 
 		}
-		return null;
+		throw new Exception("Object bestaat niet");
 	}
 
 	// to do bert
@@ -81,4 +84,8 @@ public class Train {
 		}
 		return seats;
 	};
+
+	public String toString() {
+		return ("printing train" + rollingComponents);
+	}
 }
