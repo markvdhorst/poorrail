@@ -11,11 +11,8 @@ public class Train {
 	// ja.
 	// Dit is de constructor voor altijd rollingcomponent in train nu kan beide
 	// nog.
-	public Train(String trainId, RollingComponentType rct, String wagonid) {
+	public Train(String trainId) {
 		id = trainId;
-		rollingComponents = new ArrayList<RollingComponent>();
-		RollingComponent rc = new RollingComponent(rct, wagonid);
-		rollingComponents.add(rc);
 	}
 
 	// simpele arraylist toevoeging aan het einde.

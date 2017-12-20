@@ -7,6 +7,7 @@ import nl.hu.pafr.model.TrainCompany;
 import nl.hu.pafr.persistence.JsonStorage;
 import nl.hu.pafr.view.DslTrainCompanyView;
 import nl.hu.pafr.view.GraphicalTrainCompanyView;
+import nl.hu.pafr.view.GuiTrainCompanyView;
 
 public class RichRailAdministration {
 	public static void main(String[] args){
@@ -66,7 +67,7 @@ public class RichRailAdministration {
 					case 0:
 						break mainLoop;
 					case 1:
-						new GraphicalTrainCompanyView(controller);
+						new GuiTrainCompanyView(controller);
 						break;
 					case 2:
 						new DslTrainCompanyView(controller);
@@ -90,14 +91,14 @@ public class RichRailAdministration {
 		TrainCompany trainCompany = new TrainCompany();
 		trainCompany.addRollingComponentType(0, "Bert", true);
 		try {
-			trainCompany.addTrain("Bert", "Bert", "Bert");
+			trainCompany.addTrain("Bert");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		trainCompany.addRollingComponentType(20, "Mark", true);
 		try {
-			trainCompany.addTrain("Mark", "Mark", "Mark");
+			trainCompany.addTrain("Mark");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

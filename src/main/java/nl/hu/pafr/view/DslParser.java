@@ -39,7 +39,7 @@ public class DslParser {
 		// TODO Auto-generated method stub
 		if (commands[0].equals("new")) {
 			if (commands[1].equals("train")) {
-				TCT.addTrain(commands[2], commands[3], commands[4]);
+				TCT.addTrain(commands[2]);
 				return true;
 			}
 			if (commands[1].equals("wagon")) {

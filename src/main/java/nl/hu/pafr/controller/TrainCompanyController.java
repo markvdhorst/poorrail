@@ -58,8 +58,8 @@ public class TrainCompanyController implements Subject {
 		return result;
 	}
 	
-	public final boolean addTrain(String TrainId, String name, String wagonId) throws Exception {
-		boolean result = trainCompany.addTrain(TrainId, name, wagonId);
+	public final boolean addTrain(String TrainId) throws Exception {
+		boolean result = trainCompany.addTrain(TrainId);
 		notifyObservers();
 		return result;
 	}
