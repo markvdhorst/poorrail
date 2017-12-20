@@ -20,9 +20,13 @@ public class Train {
 
 	// simpele arraylist toevoeging aan het einde.
 	// ik maak hier pas het object.
-	public void addRollingComponentEnd(RollingComponentType t, String i) {
-		RollingComponent rc = new RollingComponent(t, i);
-		rollingComponents.add(rc);
+	public void addRollingComponentEnd(RollingComponentType t, String i) throws Exception {
+		RollingComponent a = findRollingComponentInTrain(i);
+		if (a == null) {
+			RollingComponent rc = new RollingComponent(t, i);
+			rollingComponents.add(rc);
+		}
+		throw new Exception("Rolling Compnent id is al gebruikt");
 	}
 
 	// toevoeging aan de arraylist via de index let op index start op 0 zoals
@@ -34,7 +38,7 @@ public class Train {
 
 	// Snel geschreven en niet getest als er ergens problem zijn is het hier
 	// wel.
-	public boolean deleteRolingComponent(String id) throws Exception {
+	public boolean deleteRolingComponent(String id) {
 		RollingComponent r = findRollingComponentInTrain(id);
 		rollingComponents.remove(r);
 		return true;
@@ -49,25 +53,19 @@ public class Train {
 		return rollingComponents.get(index);
 	}
 
-	// Komt het voor dat wij het id weten maar het component wilen hebben?
-	public RollingComponent getRollingComponentsByID(String id) throws Exception {
-		RollingComponent r = findRollingComponentInTrain(id);
-		return r;
-	}
-
 	public String getId() {
 		return id;
 	}
 
-	public RollingComponent findRollingComponentInTrain(String s) throws Exception {
+	public RollingComponent findRollingComponentInTrain(String s) {
 		ArrayList<RollingComponent> a = this.rollingComponents;
 		for (RollingComponent o : a) {
-			if (o.getId() == s) {
+			if (o.getId().equals(s)) {
 				return o;
 			}
 
 		}
-		throw new Exception("Object bestaat niet");
+		return null;
 	}
 
 	// to do bert
@@ -79,7 +77,7 @@ public class Train {
 	// getseats() van rollingcomponenttype.
 	public int getSeats() {
 		int seats = 0;
-		for (RollingComponent r : rollingComponents) {
+		for (RollingComponent r : this.rollingComponents) {
 			seats += r.getSeats();
 		}
 		return seats;
