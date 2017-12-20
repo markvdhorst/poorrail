@@ -1,6 +1,5 @@
 package nl.hu.pafr.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,11 +11,20 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import javax.swing.Action;
 
 public class CommandLineInterface extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCommandLine;
+	private final Action action = new SwingAction();
+	private ArrayList<String> last15Commands;
+	JTextArea txtrVorigeCommandos;
+
 
 	/**
 	 * Launch the application.
@@ -38,6 +46,7 @@ public class CommandLineInterface extends JFrame {
 	 * Create the frame.
 	 */
 	public CommandLineInterface() {
+		last15Commands = new ArrayList<String>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -76,6 +85,7 @@ public class CommandLineInterface extends JFrame {
 		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnEnter = new JButton("Enter");
+		btnEnter.setAction(action);
 		panel_3.add(btnEnter);
 		
 		JPanel panel_1 = new JPanel();
@@ -83,7 +93,8 @@ public class CommandLineInterface extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea txtrVorigeCommandos = new JTextArea();
+		txtrVorigeCommandos = new JTextArea();
+		txtrVorigeCommandos.setColumns(15);
 		txtrVorigeCommandos.setText("Vorige Commando's");
 		panel_1.add(txtrVorigeCommandos);
 		
@@ -97,4 +108,25 @@ public class CommandLineInterface extends JFrame {
 		panel_2.add(txtrTreinen);
 	}
 
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+
+		}
+		public void actionPerformed(ActionEvent e) {
+			String text = txtCommandLine.getText();
+			if (last15Commands.size() < 15){
+				last15Commands.add(text);
+				
+			}
+			if (last15Commands.size() == 15){
+				last15Commands.remove(1);
+				last15Commands.add(text);
+				
+			} 
+			txtrVorigeCommandos.setText(text);
+			System.out.println(last15Commands.toString());
+		}
+	}
 }
