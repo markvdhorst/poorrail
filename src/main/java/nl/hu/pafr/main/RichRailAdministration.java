@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import nl.hu.pafr.controller.TrainCompanyController;
 import nl.hu.pafr.model.TrainCompany;
+import nl.hu.pafr.persistence.JsonStorage;
 import nl.hu.pafr.view.DslTrainCompanyView;
 import nl.hu.pafr.view.GraphicalTrainCompanyView;
 
@@ -14,18 +15,20 @@ public class RichRailAdministration {
 		//TODO: Opties voor laden in een lijst zetten en dit gedeeltelijk automatisch laten gebeuren.
 		System.out.println("0. Start without data");
 		System.out.println("1. Start with test data");
+		System.out.println("2. Retrieve from json file");
 		Scanner consoleInput = new Scanner(System.in);
 		int selectedNumber = -1;
 		while(true) {
 			String stringInput = consoleInput.next();
 			try{
 				selectedNumber = Integer.parseInt(stringInput);
-				if(selectedNumber <= 1 && selectedNumber >=0) {
+				if(selectedNumber <= 2 && selectedNumber >=0) {
 					break;
 				}
 			} catch(NumberFormatException e) {
 				System.out.println("Please enter a valid number.");
 			}
+			System.out.println("Please insert a number from the list");
 		}
 		System.out.println("Selected number " + selectedNumber);
 		TrainCompany trainCompany;
@@ -40,11 +43,16 @@ public class RichRailAdministration {
 					trainCompany = new TrainCompany();
 				}
 				break;
+			case 2:
+				JsonStorage storage = new JsonStorage();
+				trainCompany = storage.retrieveFromFile();
+				break;
 			default:
 				trainCompany = new TrainCompany();
 		}
 		//Hieronder is de basisstructuur van de code om de applicatie te starten. Deze code moet nog uitgebreid worden voordat het nuttig is.
 		TrainCompanyController controller = new TrainCompanyController(trainCompany);
+		controller.notifyObservers();
 		System.out.println("Train data ready.");
 		System.out.println("Insert a number to start an interface or insert 0 to quit.");
 		System.out.println("1. Graphical User Interface");

@@ -3,5 +3,5 @@ package nl.hu.pafr.controller;
 public interface Subject {
 	public void register(Observer o);
 	public void unregister(Observer o);
-	public void Notify();
+	public void notifyObservers();
 }

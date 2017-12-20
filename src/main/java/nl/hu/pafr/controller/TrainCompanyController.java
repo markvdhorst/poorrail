@@ -30,37 +30,37 @@ public class TrainCompanyController implements Subject {
 	
 	public boolean addRollingComponentToTrain(String trainid, String wagonId, String rname) throws Exception {
 		boolean result = trainCompany.addRollingComponentToTrain(trainid, wagonId, rname);
-		Notify();
+		notifyObservers();
 		return result;
 	}
 	
 	public boolean addRollingComponentToTrainByIndex(String trainid, String wagonId, RollingComponentType rname, int index) throws Exception {
 		boolean result = trainCompany.addRollingComponentToTrainByIndex(trainid, wagonId, rname, index);
-		Notify();
+		notifyObservers();
 		return result;
 	}
 	
 	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) throws Exception {
 		boolean result = trainCompany.deleteRollingComponentFromTrain(trainid, wagonId);
-		Notify();
+		notifyObservers();
 		return result;
 	}
 	
 	public final boolean addRollingComponentType(int s, String n, Boolean cd) {
 		boolean result = trainCompany.addRollingComponentType(s, n, cd);
-		Notify();
+		notifyObservers();
 		return result;
 	}
 	
 	public final boolean addRollingComponentType(String n, Boolean cd) {
 		boolean result = trainCompany.addRollingComponentType(n, cd);
-		Notify();
+		notifyObservers();
 		return result;
 	}
 	
 	public final boolean addTrain(String TrainId, String name, String wagonId) throws Exception {
 		boolean result = trainCompany.addTrain(TrainId, name, wagonId);
-		Notify();
+		notifyObservers();
 		return result;
 	}
 	
@@ -94,7 +94,7 @@ public class TrainCompanyController implements Subject {
 	}
 
 	@Override
-	public void Notify() {
+	public void notifyObservers() {
 		for(Observer o: observers){
 			o.update();
 		}

@@ -1,0 +1,1 @@
+{"trains":[{"id":"Bert","rollingComponents":[{"id":"Bert","rollingComponentType":{"seats":0,"name":"Bert","canDrive":true}}]},{"id":"Mark","rollingComponents":[{"id":"Mark","rollingComponentType":{"seats":20,"name":"Mark","canDrive":true}}]}],"rcTypes":[{"seats":0,"name":"Bert","canDrive":true},{"seats":20,"name":"Mark","canDrive":true}]}
