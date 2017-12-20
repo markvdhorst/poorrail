@@ -9,6 +9,9 @@ import javax.swing.JTextField;
 import java.awt.GridLayout;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+
+import nl.hu.pafr.controller.TrainCompanyController;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
@@ -23,7 +26,9 @@ public class CommandLineInterface extends JFrame {
 	private JTextField txtCommandLine;
 	private final Action action = new SwingAction();
 	private ArrayList<String> last15Commands;
-	JTextArea txtrVorigeCommandos;
+	private JTextArea txtrVorigeCommandos;
+	private TrainCompanyController controller;
+	private DslParser parser;
 
 
 	/**
@@ -46,6 +51,9 @@ public class CommandLineInterface extends JFrame {
 	 * Create the frame.
 	 */
 	public CommandLineInterface() {
+		
+		this.controller = controller;
+		this.parser = new DslParser(controller);
 		last15Commands = new ArrayList<String>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -116,6 +124,12 @@ public class CommandLineInterface extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String text = txtCommandLine.getText();
+			try {
+				parser.parseDSL(text);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if (last15Commands.size() < 15){
 				last15Commands.add(text);
 				
