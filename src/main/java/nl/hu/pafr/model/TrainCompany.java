@@ -68,15 +68,15 @@ public class TrainCompany {
 		return false;
 	}
 
-	public final boolean addRollingComponentType(int s, String n, Boolean cd) {
-		RollingComponentType rct = new RollingComponentType(s, n, cd);
+	public final boolean addRollingComponentType(int s, String n) {
+		RollingComponentType rct = new RollingComponentType(s, n);
 		rcTypes.add(rct);
 		return true;
 	}
 
 	// geen int ingeven is 20 seats
-	public final boolean addRollingComponentType(String n, Boolean cd) {
-		return addRollingComponentType(20, n, cd);
+	public final boolean addRollingComponentType(String n) {
+		return addRollingComponentType(20, n);
 	}
 
 	// Waarom is dit nodig bert?

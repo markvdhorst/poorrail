@@ -88,14 +88,14 @@ public class RichRailAdministration {
 	//TODO: echte methode maken voor het inladen van een traincompany, mogelijk generiek maken/gebruik laten maken van interface
 	private static TrainCompany loadTrainCompany() throws Exception {
 		TrainCompany trainCompany = new TrainCompany();
-		trainCompany.addRollingComponentType(0, "Bert", true);
+		trainCompany.addRollingComponentType(0, "Bert");
 		try {
 			trainCompany.addTrain("Bert", "Bert", "Bert");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		trainCompany.addRollingComponentType(20, "Mark", true);
+		trainCompany.addRollingComponentType(20, "Mark");
 		try {
 			trainCompany.addTrain("Mark", "Mark", "Mark");
 		} catch (Exception e) {
