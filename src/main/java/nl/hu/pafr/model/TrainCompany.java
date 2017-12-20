@@ -31,13 +31,19 @@ public class TrainCompany {
 	}
 
 	// Het type moet al bestaan.
-	public boolean addRollingComponentToTrain(String trainid, String wagonId, RollingComponentType rname)
-			throws Exception {
-		for (Train t : trains) {
-			if (t.getId() == trainid) {
-				t.addRollingComponentEnd(rname, wagonId);
-				return true;
+	public boolean addRollingComponentToTrain(String trainid, String wagonId, String rname) throws Exception {
+		RollingComponentType rtype;
+		for (RollingComponentType r : rcTypes) {
+			if (r.getName() == rname) {
+				rtype = r;
+				for (Train t : trains) {
+					if (t.getId() == trainid) {
+						t.addRollingComponentEnd(rtype, wagonId);
+						return true;
+					}
+				}
 			}
+
 		}
 		return false;
 	}
@@ -90,7 +96,7 @@ public class TrainCompany {
 		}
 		throw new Exception("RollingComponentType id bestaat niet");
 	}
-	
+
 	// verzin hier iets voor want dit scheelt 5 keer code.
 	public Train findTrainInArrayList(String s) throws Exception {
 		ArrayList<Train> a = this.trains;

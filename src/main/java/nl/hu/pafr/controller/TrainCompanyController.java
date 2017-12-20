@@ -28,7 +28,7 @@ public class TrainCompanyController implements Subject {
 		return trainCompany.getSeats(id);
 	}
 	
-	public boolean addRollingComponentToTrain(String trainid, String wagonId, RollingComponentType rname) throws Exception {
+	public boolean addRollingComponentToTrain(String trainid, String wagonId, String rname) throws Exception {
 		boolean result = trainCompany.addRollingComponentToTrain(trainid, wagonId, rname);
 		Notify();
 		return result;

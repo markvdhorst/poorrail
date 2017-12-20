@@ -81,9 +81,19 @@ public class RichRailAdministration {
 	private static TrainCompany loadTrainCompany() throws Exception {
 		TrainCompany trainCompany = new TrainCompany();
 		trainCompany.addRollingComponentType(0, "Bert", true);
-		trainCompany.addTrain("Bert", "Bert", "Bert");
+		try {
+			trainCompany.addTrain("Bert", "Bert", "Bert");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		trainCompany.addRollingComponentType(20, "Mark", true);
-		trainCompany.addTrain("Mark", "Mark", "Mark");
+		try {
+			trainCompany.addTrain("Mark", "Mark", "Mark");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return trainCompany;
 	}
 }
