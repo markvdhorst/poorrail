@@ -47,10 +47,16 @@ public class DslParser {
 		// TODO Auto-generated method stub
 		if (commands[0].equals("new")) {
 			if (commands[1].equals("train")) {
-			TCT.addTrain(commands[2], commands[3], commands[4]);
-			return true;}
+				TCT.addTrain(commands[2], commands[3], commands[4]);
+				return true;
+			}
 			if (commands[1].equals("wagon")) {
 				boolean command = Boolean.valueOf(commands[3]);
+				if (commands[4] != null){
+				int seats = Integer.parseInt(commands[4]);
+				TCT.addRollingComponentType(seats, commands[2], command);
+				return true;
+				}
 				TCT.addRollingComponentType(commands[2], command);
 				return true;
 			}
@@ -58,22 +64,27 @@ public class DslParser {
 		}
 		if (commands[0].equals("add")) {
 			TCT.addRollingComponentToTrain(commands[1], commands[3], commands[4]);
-		}
-		if (commands[0].equals("getnumseats")) {
-		}
-		if (commands[0].equals("delete")) {
-
-		}
-		if (commands[0].equals("remove")) {
-		}
-		return false;
-	}
-
-	private static boolean inBounds(int i, String[] s) {
-		if (i >= 0 && i < s.length) {
 			return true;
 		}
+		if (commands[0].equals("getnumseats")) {
+			if (commands[1].equals("train")) {
+				TCT.getSeats(commands[1]);
+				return true;
+			}
+			if (commands[1].equals("wagon")) {
+				TCT.getSeats(commands[1]);
+				return true;
+			}
+		}
+		if (commands[0].equals("delete")) {
+				TCT.deleteTrain(commands[2]);
+		}
+		if (commands[0].equals("remove")) {
+			TCT.deleteRollingComponentFromTrain(commands[1], commands[3]);
+		}
 		return false;
 	}
+
+
 
 }
