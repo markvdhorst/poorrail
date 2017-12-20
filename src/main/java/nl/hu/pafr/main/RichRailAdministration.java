@@ -5,8 +5,7 @@ import java.util.Scanner;
 import nl.hu.pafr.controller.TrainCompanyController;
 import nl.hu.pafr.model.TrainCompany;
 import nl.hu.pafr.persistence.JsonStorage;
-import nl.hu.pafr.view.DslTrainCompanyView;
-import nl.hu.pafr.view.GraphicalTrainCompanyView;
+import nl.hu.pafr.view.CommandLineInterface;
 import nl.hu.pafr.view.GuiTrainCompanyView;
 
 public class RichRailAdministration {
@@ -72,7 +71,7 @@ public class RichRailAdministration {
 						new GuiTrainCompanyView(controller);
 						break;
 					case 2:
-						new DslTrainCompanyView(controller);
+						new CommandLineInterface(controller);
 						break;
 					default:
 						System.out.println("Please insert a number from the list or insert 0 to quit.");

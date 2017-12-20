@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
+import nl.hu.pafr.controller.Observer;
 import nl.hu.pafr.controller.TrainCompanyController;
 
 import java.awt.Color;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 import javax.swing.Action;
 
-public class CommandLineInterface extends JFrame {
+public class CommandLineInterface extends JFrame implements Observer{
 
 	private JPanel contentPane;
 	private JTextField txtCommandLine;
@@ -30,29 +31,14 @@ public class CommandLineInterface extends JFrame {
 	private TrainCompanyController controller;
 	private DslParser parser;
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CommandLineInterface frame = new CommandLineInterface();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
+	 * @param controller 
 	 */
-	public CommandLineInterface() {
+	public CommandLineInterface(TrainCompanyController controller) {
 		
 		this.controller = controller;
+		controller.register(this);
 		this.parser = new DslParser(controller);
 		last15Commands = new ArrayList<String>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,6 +100,7 @@ public class CommandLineInterface extends JFrame {
 		JTextArea txtrTreinen = new JTextArea();
 		txtrTreinen.setText("Treinen");
 		panel_2.add(txtrTreinen);
+		setVisible(true);
 	}
 
 	private class SwingAction extends AbstractAction {
@@ -143,4 +130,10 @@ public class CommandLineInterface extends JFrame {
 			System.out.println(last15Commands.toString());
 		}
 	}
+
+	@Override
+	public void update() {
+		
+	}
+	
 }
