@@ -1,15 +1,24 @@
 package nl.hu.pafr.model;
-// 13/12/2017 klaar
+
+// 20/12/2017 done
+
 public class RollingComponent {
-	// id of rolling mag niet aanpasbaar te zijn.
+	
+	// id mag niet aanpasbaar te zijn.
+	
 	private final String id;
 	private final RollingComponentType rollingComponentType;
-	// deze klasse is vrij simpel en heeft eigenlijk alleen maar attributen en functies om de attributen op te vragen.
+
+	// deze klasse is vrij simpel en heeft eigenlijk alleen maar attributen en
+	// functies om de attributen op te vragen.
+	
 	public RollingComponent(RollingComponentType rct, String i) {
 		id = i;
 		rollingComponentType = rct;
 	}
+
 	// Er zijn geen set functies omdat alles final is.
+	
 	public String getId() {
 		return id;
 	}
@@ -18,10 +27,7 @@ public class RollingComponent {
 		return rollingComponentType;
 	}
 
-	public int getSeats(){
+	public int getSeats() {
 		return rollingComponentType.getSeats();
-	}
-	public String toString(){
-		return ("printing rolling component " + id + rollingComponentType + getSeats());
 	}
 }
