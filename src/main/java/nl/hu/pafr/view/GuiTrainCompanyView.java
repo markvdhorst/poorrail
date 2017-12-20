@@ -2,6 +2,7 @@ package nl.hu.pafr.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +16,8 @@ import javax.swing.BoxLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Insets;
+import java.awt.List;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,7 +41,11 @@ import java.awt.event.ActionListener;
 
 public class GuiTrainCompanyView extends JFrame implements Observer {
 
+	private int OFFSET = 100;
+	private int TRAINLENGTH = 100;
+	
 	private JPanel contentPane;
+	private JPanel drawPanel;
 	private JTextField addTrainText;
 	private JTextField addTypeText;
 	private JTextField addWagonText;
@@ -96,11 +103,50 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		for(RollingComponentType type: trainCompany.getRCType()) {
 			typeSelectionBox.addItem(type);
 		}
+		drawTrains(trainCompany);
 	}
 	
-	private void drawTrains() {
-		
+	private void drawTrains(TrainCompany trainCompany) {
+		int i = 0;
+		for(Train t : trainCompany.getTrains()) {
+			drawTrain(t.getId(), i);
+			int j = 1;
+			for(RollingComponent c: t.getRollingComponents()) {
+				drawWagon(c.getId(), i, j);
+				j++;
+			}
+			i++;
+			
+		}
 	}
+	
+	public void drawTrain(String train, int trainNumber) 
+	{
+		if (train != "")
+		{
+			Graphics g = drawPanel.getGraphics();
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(30,80+trainNumber*OFFSET,80,40);
+			g.fillRect(80,60+trainNumber*OFFSET,30,30);
+			g.drawRoundRect(85, 40+trainNumber*OFFSET, 20, 20, 20, 20);
+			g.drawRoundRect(85, trainNumber*OFFSET, 40, 40, 40, 40);
+			g.setColor(Color.BLACK);
+			g.fillRoundRect(35, 120+trainNumber*OFFSET, 20, 20, 20, 20);
+			g.fillRoundRect(80, 120+trainNumber*OFFSET, 20, 20, 20, 20);
+			g.drawString(train,40,105+trainNumber*OFFSET);
+		}
+    }
+	
+	public void drawWagon(String wagon, int trainNumber, int wagonNumber) 
+	{
+		Graphics g = drawPanel.getGraphics();
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(30+wagonNumber*TRAINLENGTH,80+trainNumber*OFFSET,80,40);
+		g.setColor(Color.BLACK);
+		g.fillRoundRect(35+wagonNumber*TRAINLENGTH, 120+trainNumber*OFFSET, 20, 20, 20, 20);
+		g.fillRoundRect(80+wagonNumber*TRAINLENGTH, 120+trainNumber*OFFSET, 20, 20, 20, 20);
+		g.drawString(wagon,40+wagonNumber*TRAINLENGTH,105+trainNumber*OFFSET);
+    }
 
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -115,7 +161,7 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JPanel drawPanel = new JPanel();
+		drawPanel = new JPanel();
 		drawPanel.setBackground(Color.WHITE);
 		GridBagConstraints gbc_drawPanel = new GridBagConstraints();
 		gbc_drawPanel.fill = GridBagConstraints.BOTH;
