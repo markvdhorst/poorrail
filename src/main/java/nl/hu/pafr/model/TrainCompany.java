@@ -85,7 +85,7 @@ public class TrainCompany {
 		}
 		return false;
 	}
-
+	
 	// verzin hier iets voor want dit scheelt 5 keer code.
 	public Train findTrainInArrayList(String s) throws Exception {
 		ArrayList<Train> a = this.trains;

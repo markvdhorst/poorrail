@@ -10,9 +10,16 @@ public class Main {
 		TrainCompany trainCompany = loadTrainCompany();
 		TrainCompanyController controller = new TrainCompanyController(trainCompany);
 		GraphicalTrainCompanyView view = new GraphicalTrainCompanyView(controller);
+		System.out.println("test");
 	}
+	
 	//TODO: echte methode maken voor het inladen van een traincompany, mogelijk generiek maken/gebruik laten maken van interface
 	private static TrainCompany loadTrainCompany() {
-		return new TrainCompany();
+		TrainCompany trainCompany = new TrainCompany();
+		trainCompany.addRollingComponentType(0, "Bert", true);
+		trainCompany.addTrain("Bert", "Bert", "Bert");
+		trainCompany.addRollingComponentType(20, "Mark", true);
+		trainCompany.addTrain("Mark", "Mark", "Mark");
+		return trainCompany;
 	}
 }
