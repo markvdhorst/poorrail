@@ -10,23 +10,15 @@ public class DslParser {
 		TCT = tct;
 	}
 
-	static void parseDSL(String s) throws Exception {
+	boolean parseDSL(String s) throws Exception {
 		// Haar de string uit elkaar
 		String[] commands = s.split(" ");
 		// Kijk naar het 1ste commando
-		if (inBounds(3, commands)) {
-			parseWord3(commands[3]);
-		}
-		if (inBounds(2, commands)) {
-			parseWord2(commands[2]);
-		}
-		if (inBounds(1, commands)) {
-			parseWord1(commands[1]);
-		}
-		if (inBounds(0, commands)) {
-			parseWord0(commands);
+	if (parseWord0(commands)){
+		return true;
 		} else
 			System.out.println("Commando niet begrepen.");
+	return false;
 	}
 
 	private static void parseWord3(String command) {
@@ -52,10 +44,10 @@ public class DslParser {
 			}
 			if (commands[1].equals("wagon")) {
 				boolean command = Boolean.valueOf(commands[3]);
-				if (commands[4] != null){
-				int seats = Integer.parseInt(commands[4]);
-				TCT.addRollingComponentType(seats, commands[2], command);
-				return true;
+				if (commands[4] != null) {
+					int seats = Integer.parseInt(commands[4]);
+					TCT.addRollingComponentType(seats, commands[2], command);
+					return true;
 				}
 				TCT.addRollingComponentType(commands[2], command);
 				return true;
@@ -77,14 +69,12 @@ public class DslParser {
 			}
 		}
 		if (commands[0].equals("delete")) {
-				TCT.deleteTrain(commands[2]);
+			TCT.deleteTrain(commands[2]);
 		}
 		if (commands[0].equals("remove")) {
 			TCT.deleteRollingComponentFromTrain(commands[1], commands[3]);
 		}
 		return false;
 	}
-
-
 
 }
