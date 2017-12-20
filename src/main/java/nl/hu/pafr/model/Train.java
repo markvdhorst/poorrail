@@ -38,7 +38,7 @@ public class Train {
 
 	// Snel geschreven en niet getest als er ergens problem zijn is het hier
 	// wel.
-	public boolean deleteRolingComponent(String id) {
+	public boolean deleteRolingComponent(String id) throws Exception {
 		RollingComponent r = findRollingComponentInTrain(id);
 		rollingComponents.remove(r);
 		return true;
@@ -57,7 +57,7 @@ public class Train {
 		return id;
 	}
 
-	public RollingComponent findRollingComponentInTrain(String s) {
+	public RollingComponent findRollingComponentInTrain(String s) throws Exception {
 		ArrayList<RollingComponent> a = this.rollingComponents;
 		for (RollingComponent o : a) {
 			if (o.getId().equals(s)) {
@@ -65,7 +65,7 @@ public class Train {
 			}
 
 		}
-		return null;
+		throw new Exception("Wagon niet gevonden");
 	}
 
 	// to do bert

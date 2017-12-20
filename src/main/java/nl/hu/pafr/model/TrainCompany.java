@@ -12,7 +12,7 @@ public class TrainCompany {
 	}
 
 	// Iets lastiger dan de train.removeRollingComponent()
-	public boolean deleteTrain(String id) {
+	public boolean deleteTrain(String id) throws Exception {
 		Train t = findTrainInArrayList(id);
 		if (t != null) {
 			ArrayList<RollingComponent> a = t.getRollingComponents();
@@ -25,12 +25,9 @@ public class TrainCompany {
 		return false;
 	}
 
-	public int getSeats(String id) {
+	public int getSeats(String id) throws Exception {
 		Train i = findTrainInArrayList(id);
-		if (i != null) {
-			return i.getSeats();
-		}
-		return 0;
+		return i.getSeats();
 	}
 
 	// Het type moet al bestaan.
@@ -47,7 +44,7 @@ public class TrainCompany {
 
 	// Zelfde als hierboven
 	public boolean addRollingComponentToTrainByIndex(String trainid, String wagonId, RollingComponentType rname,
-			int index) {
+			int index) throws Exception {
 		Train t = findTrainInArrayList(trainid);
 		if (t != null) {
 			t.addRollingComponentPlace(rname, wagonId, index);
@@ -56,7 +53,7 @@ public class TrainCompany {
 		return false;
 	}
 
-	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) {
+	public boolean deleteRollingComponentFromTrain(String trainid, String wagonId) throws Exception {
 		Train t = findTrainInArrayList(trainid);
 		if (t != null) {
 			boolean del = t.deleteRolingComponent(wagonId);
@@ -78,31 +75,31 @@ public class TrainCompany {
 
 	// Waarom is dit nodig bert?
 	public final boolean addTrain(String TrainId, String name, String wagonId) throws Exception {
-		Train a = findTrainInArrayList(TrainId);
-		if (a == null) {
+		try {
+			Train a = findTrainInArrayList(TrainId);
+		} catch (Exception e) {
 			for (RollingComponentType rct : this.rcTypes) {
-				if (rct.getName().equals(name)) {
+				if (rct.getName() == name) {
 					Train t = new Train(TrainId, rct, wagonId);
 					trains.add(t);
 					return true;
 				}
+
 			}
 
-		} else {
-			throw new Exception("Train id is al gebruikt");
 		}
-		return false;
+		throw new Exception("RollingComponentType id bestaat niet");
 	}
 
 	// verzin hier iets voor want dit scheelt 5 keer code.
-	public Train findTrainInArrayList(String s) {
+	public Train findTrainInArrayList(String s) throws Exception {
 		ArrayList<Train> a = this.trains;
 		for (Train o : a) {
-			if (o.getId().equals(s)) {
+			if (o.getId() == s) {
 				return o;
 			}
 		}
-		return null;
+		throw new Exception("Trein niet gevonden");
 	}
 
 	public ArrayList<Train> getTrains() {
