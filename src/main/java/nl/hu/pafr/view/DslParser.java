@@ -21,19 +21,6 @@ public class DslParser {
 	return false;
 	}
 
-	private static void parseWord3(String command) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private static void parseWord2(String command) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private static void parseWord1(String command) {
-
-	}
 
 	private boolean parseWord0(String[] commands) throws Exception {
 		// TODO Auto-generated method stub
@@ -46,10 +33,10 @@ public class DslParser {
 				boolean command = Boolean.valueOf(commands[3]);
 				if (commands[4] != null) {
 					int seats = Integer.parseInt(commands[4]);
-					TCT.addRollingComponentType(seats, commands[2], command);
+					TCT.addRollingComponentType(seats, commands[2]);
 					return true;
 				}
-				TCT.addRollingComponentType(commands[2], command);
+				TCT.addRollingComponentType(commands[2]);
 				return true;
 			}
 			throw new Exception("Onbekend Commando op plek 2");

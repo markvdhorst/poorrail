@@ -17,8 +17,14 @@ public class RollingComponentType {
 	public String getName() {
 		return name;
 	}
+<<<<<<< HEAD
 	public String toString(){
 		return name;
+=======
+
+	public String toString(){
+		return ("printing rolling componenttype "+ seats+ " " + name);
+>>>>>>> 55fc97aca8175ecaf9502af4a8b155c457d53823
 	}
 
 }
