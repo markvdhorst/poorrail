@@ -128,9 +128,13 @@ public class CommandLineInterface extends JFrame implements Observer{
 			}
 			if (last15Commands.size() == 15){
 				last15Commands.remove(1);
-				last15Commands.add(text);
+				last15Commands.add(1, text);
 				
 			} 
+			text = "Vorige Commando's\n";
+			for(String s : last15Commands) {
+				text += s + "\n"; 
+			}
 			txtrVorigeCommandos.setText(text);
 			System.out.println(last15Commands.toString());
 		}
