@@ -90,7 +90,7 @@ public class TrainCompany {
 		}
 		throw new Exception("RollingComponentType id bestaat niet");
 	}
-
+	
 	// verzin hier iets voor want dit scheelt 5 keer code.
 	public Train findTrainInArrayList(String s) throws Exception {
 		ArrayList<Train> a = this.trains;
