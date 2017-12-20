@@ -103,6 +103,13 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		for(RollingComponentType type: trainCompany.getRCType()) {
 			typeSelectionBox.addItem(type);
 		}
+		try {
+			//Temp solution for drawing getting overwritten
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		drawTrains(trainCompany);
 	}
 	

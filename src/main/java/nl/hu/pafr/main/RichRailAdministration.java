@@ -69,6 +69,7 @@ public class RichRailAdministration {
 						break mainLoop;
 					case 1:
 						new GuiTrainCompanyView(controller);
+						
 						break;
 					case 2:
 						new CommandLineInterface(controller);
