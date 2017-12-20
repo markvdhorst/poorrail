@@ -34,7 +34,11 @@ public class RichRailAdministration {
 				trainCompany = new TrainCompany();
 				break;
 			case 1:
-				trainCompany = loadTrainCompany();
+				try {
+					trainCompany = loadTrainCompany();
+				} catch (Exception e) {
+					trainCompany = new TrainCompany();
+				}
 				break;
 			default:
 				trainCompany = new TrainCompany();
@@ -74,7 +78,7 @@ public class RichRailAdministration {
 	}
 	
 	//TODO: echte methode maken voor het inladen van een traincompany, mogelijk generiek maken/gebruik laten maken van interface
-	private static TrainCompany loadTrainCompany() {
+	private static TrainCompany loadTrainCompany() throws Exception {
 		TrainCompany trainCompany = new TrainCompany();
 		trainCompany.addRollingComponentType(0, "Bert", true);
 		try {
