@@ -53,6 +53,8 @@ public class RichRailAdministration {
 		}
 		//Hieronder is de basisstructuur van de code om de applicatie te starten. Deze code moet nog uitgebreid worden voordat het nuttig is.
 		TrainCompanyController controller = new TrainCompanyController(trainCompany);
+		JsonStorage storage = new JsonStorage();
+		storage.registerToController(controller);
 		controller.notifyObservers();
 		System.out.println("Train data ready.");
 		System.out.println("Insert a number to start an interface or insert 0 to quit.");
@@ -89,14 +91,14 @@ public class RichRailAdministration {
 	//TODO: echte methode maken voor het inladen van een traincompany, mogelijk generiek maken/gebruik laten maken van interface
 	private static TrainCompany loadTrainCompany() throws Exception {
 		TrainCompany trainCompany = new TrainCompany();
-		trainCompany.addRollingComponentType(0, "Bert", true);
+		trainCompany.addRollingComponentType(0, "Bert");
 		try {
 			trainCompany.addTrain("Bert");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		trainCompany.addRollingComponentType(20, "Mark", true);
+		trainCompany.addRollingComponentType(20, "Mark");
 		try {
 			trainCompany.addTrain("Mark");
 		} catch (Exception e) {

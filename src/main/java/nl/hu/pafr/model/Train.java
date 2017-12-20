@@ -13,17 +13,20 @@ public class Train {
 	// nog.
 	public Train(String trainId) {
 		id = trainId;
+		rollingComponents = new ArrayList<RollingComponent>();
 	}
 
 	// simpele arraylist toevoeging aan het einde.
 	// ik maak hier pas het object.
 	public void addRollingComponentEnd(RollingComponentType t, String i) throws Exception {
-		RollingComponent a = findRollingComponentInTrain(i);
-		if (a == null) {
+		try {
+			RollingComponent a = findRollingComponentInTrain(i);
+			throw new Exception("Rolling Compnent id is al gebruikt");
+		} catch (Exception e) {
 			RollingComponent rc = new RollingComponent(t, i);
 			rollingComponents.add(rc);
 		}
-		throw new Exception("Rolling Compnent id is al gebruikt");
+		
 	}
 
 	// toevoeging aan de arraylist via de index let op index start op 0 zoals
@@ -60,7 +63,6 @@ public class Train {
 			if (o.getId().equals(s)) {
 				return o;
 			}
-
 		}
 		throw new Exception("Wagon niet gevonden");
 	}
@@ -81,6 +83,6 @@ public class Train {
 	};
 
 	public String toString() {
-		return ("printing train" + rollingComponents);
+		return id;
 	}
 }

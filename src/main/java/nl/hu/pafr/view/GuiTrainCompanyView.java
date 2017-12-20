@@ -25,24 +25,47 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import nl.hu.pafr.controller.Observer;
 import nl.hu.pafr.controller.TrainCompanyController;
+import nl.hu.pafr.model.RollingComponent;
+import nl.hu.pafr.model.RollingComponentType;
+import nl.hu.pafr.model.Train;
 import nl.hu.pafr.model.TrainCompany;
 
 import javax.swing.SwingConstants;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
+import java.awt.event.ActionListener;
 
 public class GuiTrainCompanyView extends JFrame implements Observer {
 
 	private JPanel contentPane;
 	private JTextField addTrainText;
 	private JTextField addTypeText;
+	private JTextField addWagonText;
+	private JComboBox<Train> trainSelectionBox;
+	private JComboBox<RollingComponent> wagonSelectionBox;
+	private JComboBox<RollingComponentType> typeSelectionBox;
+	
 	private TrainCompanyController controller;
+	
+	private Train selectedTrain = null;
+	private JLabel selectedTrainText;
+	
+	private RollingComponent selectedWagon = null;
+	private JLabel selectedWagonText;
+	
+	private RollingComponentType selectedType= null;
+	private JLabel selectedTypeText;
+	
 	private final Action addTrain = new SwingAction();
 	private final Action selectTrain = new SwingAction_1();
 	private final Action deleteTrain = new SwingAction_2();
-	private final Action SelectWagon = new SwingAction_3();
-	private final Action DeleteWagon = new SwingAction_4();
+	private final Action selectWagon = new SwingAction_3();
+	private final Action deleteWagon = new SwingAction_4();
+	private JTextField addTypeSeats;
+	private final Action addType = new SwingAction_5();
+	private final Action selectType = new SwingAction_6();
+	private final Action addEnd = new SwingAction_9();
 	/**
 	 * Create the frame.
 	 */
@@ -54,7 +77,28 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 	}
 	
 	private void updateView(TrainCompany trainCompany) {
-		// TODO Auto-generated method stub
+		selectedTrain = null;
+		selectedTrainText.setText("");
+		
+		selectedWagon = null;
+		selectedWagonText.setText("");
+		
+		selectedType = null;
+		selectedTypeText.setText("");
+				
+		
+		trainSelectionBox.removeAllItems();
+		for(Train t : trainCompany.getTrains()) {
+			trainSelectionBox.addItem(t);
+		}
+		wagonSelectionBox.removeAllItems();
+		typeSelectionBox.removeAllItems();
+		for(RollingComponentType type: trainCompany.getRCType()) {
+			typeSelectionBox.addItem(type);
+		}
+	}
+	
+	private void drawTrains() {
 		
 	}
 
@@ -108,7 +152,7 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		trainSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		leftPanel.add(trainSelectionLabel);
 		
-		JComboBox trainSelectionBox = new JComboBox();
+		trainSelectionBox = new JComboBox<Train>();
 		leftPanel.add(trainSelectionBox);
 		
 		JButton trainSelectionButton = new JButton("Select");
@@ -119,7 +163,7 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		selectedTrainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		leftPanel.add(selectedTrainLabel);
 		
-		JLabel selectedTrainText = new JLabel("");
+		selectedTrainText = new JLabel("");
 		leftPanel.add(selectedTrainText);
 		
 		JButton deleteTrainButton = new JButton("Delete train");
@@ -130,29 +174,29 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		wagonSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		leftPanel.add(wagonSelectionLabel);
 		
-		JComboBox wagonSelectionBox = new JComboBox();
+		wagonSelectionBox = new JComboBox<RollingComponent>();
 		leftPanel.add(wagonSelectionBox);
 		
 		JButton selectWagonButton = new JButton("Select");
-		selectWagonButton.setAction(SelectWagon);
+		selectWagonButton.setAction(selectWagon);
 		leftPanel.add(selectWagonButton);
 		
 		JLabel selectedWagonLabel = new JLabel("Selected wagon:");
 		selectedWagonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		leftPanel.add(selectedWagonLabel);
 		
-		JLabel selectedWagonText = new JLabel("");
+		selectedWagonText = new JLabel("");
 		leftPanel.add(selectedWagonText);
 		
 		JButton deleteWagonButton = new JButton("Delete wagon");
-		deleteWagonButton.setAction(DeleteWagon);
+		deleteWagonButton.setAction(deleteWagon);
 		leftPanel.add(deleteWagonButton);
 		
 		JPanel rightPanel = new JPanel();
 		actionPanel.add(rightPanel);
 		rightPanel.setLayout(new GridLayout(5, 3, 5, 2));
 		
-		JLabel addTypeLabel = new JLabel("Add type:");
+		JLabel addTypeLabel = new JLabel("Type name:");
 		addTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		rightPanel.add(addTypeLabel);
 		
@@ -160,33 +204,59 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		addTypeText.setColumns(10);
 		rightPanel.add(addTypeText);
 		
+		JLabel lblNewLabel = new JLabel("");
+		rightPanel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Number of seats:");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		rightPanel.add(lblNewLabel_1);
+		
+		addTypeSeats = new JTextField();
+		rightPanel.add(addTypeSeats);
+		addTypeSeats.setColumns(10);
+		
 		JButton addTypeButton = new JButton("Add");
+		addTypeButton.setAction(addType);
 		rightPanel.add(addTypeButton);
 		
 		JLabel typeSelectionLabel = new JLabel("Types:");
 		typeSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		rightPanel.add(typeSelectionLabel);
 		
-		JComboBox typeSelectionBox = new JComboBox();
+		typeSelectionBox = new JComboBox<RollingComponentType>();
 		rightPanel.add(typeSelectionBox);
 		
 		JButton typeSelectionButton = new JButton("Select");
+		typeSelectionButton.setAction(selectType);
 		rightPanel.add(typeSelectionButton);
 		
 		JLabel selectedTypeLabel = new JLabel("Selected Type:");
 		selectedTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		rightPanel.add(selectedTypeLabel);
 		
-		JLabel selectedTypeText = new JLabel("");
+		selectedTypeText = new JLabel("");
 		rightPanel.add(selectedTypeText);
 		
-		JButton deleteTypeButton = new JButton("Delete Type");
-		rightPanel.add(deleteTypeButton);
-		
-		JButton addBehindButton = new JButton("Add behind selected");
-		rightPanel.add(addBehindButton);
-		
 		JButton addAtEnd = new JButton("Add at end of train");
+		addAtEnd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		rightPanel.add(lblNewLabel_2);
+		
+		JLabel addWagonLabel = new JLabel("Wagon name:");
+		addWagonLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		rightPanel.add(addWagonLabel);
+		
+		addWagonText = new JTextField();
+		addWagonText.setEditable(true);
+		addWagonText.setEnabled(true);
+		addWagonText.setText("");
+		rightPanel.add(addWagonText);
+		addWagonText.setColumns(10);
+		addAtEnd.setAction(addEnd);
 		rightPanel.add(addAtEnd);
 		this.setVisible(true);
 	}
@@ -211,11 +281,18 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
+		
 		public SwingAction_1() {
 			putValue(NAME, "Select Train");
 			putValue(SHORT_DESCRIPTION, "Selects the train");
 		}
 		public void actionPerformed(ActionEvent e) {
+			selectedTrain = (Train) trainSelectionBox.getSelectedItem();
+			selectedTrainText.setText(selectedTrain.getId());
+			wagonSelectionBox.removeAllItems();
+			for(RollingComponent c : selectedTrain.getRollingComponents()) {
+				wagonSelectionBox.addItem(c);
+			}
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
@@ -224,6 +301,14 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 			putValue(SHORT_DESCRIPTION, "Deletes the selected train");
 		}
 		public void actionPerformed(ActionEvent e) {
+			if(selectedTrain != null) {
+				try {
+					controller.deleteTrain(selectedTrain.getId());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 	}
 	private class SwingAction_3 extends AbstractAction {
@@ -232,6 +317,8 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 			putValue(SHORT_DESCRIPTION, "Selects the wagon");
 		}
 		public void actionPerformed(ActionEvent e) {
+			selectedWagon = (RollingComponent) wagonSelectionBox.getSelectedItem();
+			selectedWagonText.setText(selectedWagon.getId());
 		}
 	}
 	private class SwingAction_4 extends AbstractAction {
@@ -240,6 +327,55 @@ public class GuiTrainCompanyView extends JFrame implements Observer {
 			putValue(SHORT_DESCRIPTION, "Deletes the selected wagon.");
 		}
 		public void actionPerformed(ActionEvent e) {
+			if(selectedTrain != null && selectedWagon != null) {
+				try {
+					controller.deleteRollingComponentFromTrain(selectedTrain.getId(), selectedWagon.getId());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	private class SwingAction_5 extends AbstractAction {
+		public SwingAction_5() {
+			putValue(NAME, "Add Type");
+			putValue(SHORT_DESCRIPTION, "Adds a type");
+		}
+		public void actionPerformed(ActionEvent e) {
+			try {
+				controller.addRollingComponentType(Integer.parseInt(addTypeSeats.getText()), addTypeText.getText());
+			} catch (NumberFormatException exception) {
+				
+			}
+		}
+	}
+	private class SwingAction_6 extends AbstractAction {
+		public SwingAction_6() {
+			putValue(NAME, "Select Type");
+			putValue(SHORT_DESCRIPTION, "Selects a type");
+		}
+		public void actionPerformed(ActionEvent e) {
+			selectedType = (RollingComponentType) typeSelectionBox.getSelectedItem();
+			selectedTypeText.setText(selectedType.getName());
+		}
+	}
+
+	private class SwingAction_9 extends AbstractAction {
+		public SwingAction_9() {
+			putValue(NAME, "Add to Train");
+			putValue(SHORT_DESCRIPTION, "Adds a wagon at the end of the train");
+		}
+		public void actionPerformed(ActionEvent e) {
+			if(selectedTrain != null && selectedType != null) {
+				try {
+					controller.addRollingComponentToTrain(selectedTrain.getId(), addWagonText.getText() , selectedType.getName());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
 		}
 	}
 }

@@ -15,10 +15,6 @@ public class TrainCompany {
 	public boolean deleteTrain(String id) throws Exception {
 		Train t = findTrainInArrayList(id);
 		if (t != null) {
-			ArrayList<RollingComponent> a = t.getRollingComponents();
-			// Alle rollingcomponents weghalen is ook wel zo netjes.
-			// Not to self: Ik maar de lijst niet aanpassen dus hoe doe ik dit.
-			a.clear();
 			trains.remove(t);
 			return true;
 		}
@@ -34,10 +30,10 @@ public class TrainCompany {
 	public boolean addRollingComponentToTrain(String trainid, String wagonId, String rname) throws Exception {
 		RollingComponentType rtype;
 		for (RollingComponentType r : rcTypes) {
-			if (r.getName() == rname) {
+			if (r.getName().equals(rname)) {
 				rtype = r;
 				for (Train t : trains) {
-					if (t.getId() == trainid) {
+					if (t.getId().equals(trainid)) {
 						t.addRollingComponentEnd(rtype, wagonId);
 						return true;
 					}
@@ -68,15 +64,20 @@ public class TrainCompany {
 		return false;
 	}
 
-	public final boolean addRollingComponentType(int s, String n, Boolean cd) {
-		RollingComponentType rct = new RollingComponentType(s, n, cd);
+	public final boolean addRollingComponentType(int s, String n) {
+		for(RollingComponentType type : rcTypes) {
+			if(type.getName().equals(n)) {
+				return false;
+			}
+		}
+		RollingComponentType rct = new RollingComponentType(s, n);
 		rcTypes.add(rct);
 		return true;
 	}
 
 	// geen int ingeven is 20 seats
-	public final boolean addRollingComponentType(String n, Boolean cd) {
-		return addRollingComponentType(20, n, cd);
+	public final boolean addRollingComponentType(String n) {
+		return addRollingComponentType(20, n);
 	}
 
 	// Waarom is dit nodig bert?
@@ -97,7 +98,7 @@ public class TrainCompany {
 	public Train findTrainInArrayList(String s) throws Exception {
 		ArrayList<Train> a = this.trains;
 		for (Train o : a) {
-			if (o.getId() == s) {
+			if (o.getId().equals(s)) {
 				return o;
 			}
 		}

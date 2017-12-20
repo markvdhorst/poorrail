@@ -30,4 +30,9 @@ public class RollingComponent {
 	public int getSeats() {
 		return rollingComponentType.getSeats();
 	}
+	
+	@Override
+	public String toString() {
+		return id;
+	}
 }

@@ -25,7 +25,9 @@ public class JsonStorage implements Observer {
 	public TrainCompany retrieveFromFile() {
 		TrainCompany trainCompany;
 		try {
-			trainCompany = gson.fromJson(new FileReader(filePath),TrainCompany.class);
+			FileReader reader = new FileReader(filePath);
+			trainCompany = gson.fromJson(reader,TrainCompany.class);
+			reader.close();
 		} catch (Exception e) {
 			trainCompany = new TrainCompany();
 		}
@@ -49,5 +51,6 @@ public class JsonStorage implements Observer {
 	
 	public void registerToController(TrainCompanyController controller) {
 		this.controller = controller;
+		controller.register(this);
 	}
 }

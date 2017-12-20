@@ -20,7 +20,7 @@ public class TrainCompanyController implements Subject {
 	
 	public boolean deleteTrain(String id) throws Exception {
 		boolean returnBoolean = trainCompany.deleteTrain(id);
-		notify();
+		notifyObservers();
 		return returnBoolean;
 	}
 	
@@ -46,14 +46,14 @@ public class TrainCompanyController implements Subject {
 		return result;
 	}
 	
-	public final boolean addRollingComponentType(int s, String n, Boolean cd) {
-		boolean result = trainCompany.addRollingComponentType(s, n, cd);
+	public final boolean addRollingComponentType(int s, String n) {
+		boolean result = trainCompany.addRollingComponentType(s, n);
 		notifyObservers();
 		return result;
 	}
 	
-	public final boolean addRollingComponentType(String n, Boolean cd) {
-		boolean result = trainCompany.addRollingComponentType(n, cd);
+	public final boolean addRollingComponentType(String n) {
+		boolean result = trainCompany.addRollingComponentType(n);
 		notifyObservers();
 		return result;
 	}
