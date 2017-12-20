@@ -41,7 +41,7 @@ public class CommandLineInterface extends JFrame implements Observer{
 		controller.register(this);
 		this.parser = new DslParser(controller);
 		last15Commands = new ArrayList<String>();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
