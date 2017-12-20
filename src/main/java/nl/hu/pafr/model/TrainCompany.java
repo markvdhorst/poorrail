@@ -80,21 +80,17 @@ public class TrainCompany {
 	}
 
 	// Waarom is dit nodig bert?
-	public final boolean addTrain(String TrainId, String name, String wagonId) throws Exception {
+	public final boolean addTrain(String TrainId){
 		try {
 			Train a = findTrainInArrayList(TrainId);
 		} catch (Exception e) {
-			for (RollingComponentType rct : this.rcTypes) {
-				if (rct.getName() == name) {
-					Train t = new Train(TrainId, rct, wagonId);
-					trains.add(t);
-					return true;
-				}
 
-			}
-
+			Train t = new Train(TrainId);
+			trains.add(t);
+			return true;
 		}
-		throw new Exception("RollingComponentType id bestaat niet");
+		return false;
+		
 	}
 
 	// verzin hier iets voor want dit scheelt 5 keer code.
