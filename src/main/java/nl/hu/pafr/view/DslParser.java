@@ -31,6 +31,7 @@ public class DslParser {
 					TCT.addRollingComponentType(seats, commands[2]);
 					return ("wagon type " + commands[2] + " created with " + commands[4].toString() + "seats");
 				} else
+					TCT.addRollingComponentType(commands[2]);
 					return ("wagon type " + commands[2] + " created with " + "20" + " seats");
 			}
 		}

@@ -1,1 +1,1 @@
-{"trains":[{"id":"Bert","rollingComponents":[]},{"id":"Mark","rollingComponents":[]}],"rcTypes":[{"seats":0,"name":"Bert"},{"seats":20,"name":"Mark"}]}
+{"trains":[{"id":"Bert","rollingComponents":[]},{"id":"Mark","rollingComponents":[]},{"id":"tr1","rollingComponents":[]}],"rcTypes":[{"seats":0,"name":"Bert"},{"seats":20,"name":"Mark"},{"seats":15,"name":"wg2"}]}
