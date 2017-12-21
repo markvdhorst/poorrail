@@ -12,6 +12,8 @@ import javax.swing.border.LineBorder;
 
 import nl.hu.pafr.controller.Observer;
 import nl.hu.pafr.controller.TrainCompanyController;
+import nl.hu.pafr.model.RollingComponent;
+import nl.hu.pafr.model.Train;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -30,6 +32,7 @@ public class CommandLineInterface extends JFrame implements Observer{
 	private JTextArea txtrVorigeCommandos;
 	private TrainCompanyController controller;
 	private DslParser parser;
+	JTextArea txtrTreinen;
 	JTextArea txtrOutput;
 
 	/**
@@ -102,10 +105,11 @@ public class CommandLineInterface extends JFrame implements Observer{
 		contentPane.add(panel_2);
 		panel_2.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea txtrTreinen = new JTextArea();
+		txtrTreinen = new JTextArea();
 		txtrTreinen.setText("Treinen");
 		panel_2.add(txtrTreinen);
 		setVisible(true);
+		addTreinen();
 	}
 
 	private class SwingAction extends AbstractAction {
@@ -137,12 +141,26 @@ public class CommandLineInterface extends JFrame implements Observer{
 			}
 			txtrVorigeCommandos.setText(text);
 			System.out.println(last15Commands.toString());
+			addTreinen();
 		}
+	}
+	public void addTreinen(){
+		String trein = "";
+		ArrayList<Train> treinen = controller.getTrains();
+		for (Train t: treinen){
+			trein += "\n"+ t + "\n";
+
+			for (RollingComponent w : t.getRollingComponents()){
+				trein += "," + w.toString();
+			}
+			
+		}
+		txtrTreinen.setText(trein);
 	}
 
 	@Override
 	public void update() {
-		
+		addTreinen();	
 	}
 	
 }
